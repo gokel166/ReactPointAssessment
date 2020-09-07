@@ -5,6 +5,7 @@ import { useTable } from 'react-table';
 // Calculate Points Function
 function calculateDataOutput(dataSet) {
 
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const ptPerTransaction = dataSet.map(transaction => {
         let points = 0;
         let aboveOneHundredPts = transaction.amount - 100;
@@ -29,16 +30,51 @@ function calculateDataOutput(dataSet) {
     let totalPointsByCustomer = {};
 
     ptPerTransaction.forEach(ppt => {
-        let {customerId, name, month, points } = ppt;
-        if(!byCustomer[customerId]) {
+        let {customerId, customerName, month, points } = ppt;
+        if (!byCustomer[customerId]) {
             byCustomer[customerId] = [];
+        }
+
+        if (!totalPointsByCustomer[customerId]) {
+            totalPointsByCustomer[customerName] = 0;
+        }
+
+        totalPointsByCustomer[customerName] += points;
+
+        if (byCustomer[customerId][month]) {
+            byCustomer[customerId][month].points += points;
+            byCustomer[customerId][month].monthNumber += month;
+            byCustomer[customerId][month].numTransactions++;
+        }
+        else {
+            byCustomer[customerId][month] = {
+                customerId,
+                customerName,
+                monthNumber: month,
+                month: months[month],
+                numTransactions: 1,
+                points
+            }
         }
     });
 
-    let tot = [];
+    // console.log(byCustomer)
 
+    let tot = [];
+    for (let custKey in byCustomer) {
+        byCustomer[custKey].forEach(cRow => {
+            tot.push(cRow);
+        });
+    }
 
     let totByCustomer = [];
+
+    for (let custKey in totalPointsByCustomer) {    
+        totByCustomer.push({
+            customerName: custKey,
+          points: totalPointsByCustomer[custKey]
+        });    
+      }
     
     return {
         summaryByCustomer: tot,
