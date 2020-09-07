@@ -4,15 +4,18 @@ const PointCalc = () => {
     // Customer receives 2 points / dollar over $100
     let dollars = 0;
     let points;
+    let primaryPoint = 2;
+    let secondaryPoint = 1;
 
     function TwoPointAccumilator(dlr) {
         let totalDollars = dlr + dollars;
         let totalPoints;
 
-        if (totalDollars > 100) {
-            return totalPoints % 2
+        if (totalDollars >= 100) {
+            return primaryPoint % 2;
         }
         else {
+            points = 1;
             return totalPoints;
         }
         
