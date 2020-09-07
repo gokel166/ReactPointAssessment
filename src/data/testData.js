@@ -3,99 +3,129 @@ export default function() {
       [
           {
             custid: 1,
-            name: "Mike",
-            amt: 120,
-            transactionDt: "05-01-2019"
+            customerName: "Mike",
+            amount: 120,
+            transactionDate: "05-01-2019"
           },
           {
             custid: 2,
-            name: "Dan",
-            amt: 75,
-            transactionDt: "05-21-2019"
+            customerName: "Dan",
+            amount: 75,
+            transactionDate: "05-21-2019"
           },
           {
             custid: 3,
-            name: "George",
-            amt: 94,
-            transactionDt: "05-21-2019"
+            customerName: "George",
+            amount: 94,
+            transactionDate: "05-21-2020"
           },
           {
             custid: 4,
-            name: "Nigel",
-            amt: 10,
-            transactionDt: "06-01-2019"
+            customerName: "Nigel",
+            amount: 10,
+            transactionDate: "06-01-2019"
           },
           {
             custid: 5,
-            name: "Brent",
-            amt: 75,
-            transactionDt: "06-21-2019"
+            customerName: "Brent",
+            amount: 75,
+            transactionDate: "06-21-2018"
           },
           {
             custid: 6,
-            name: "Cam",
-            amt: 200,
-            transactionDt: "07-01-2019"
+            customerName: "Cam",
+            amount: 200,
+            transactionDate: "07-01-2019"
           },
           {
             custid: 7,
-            name: "Harold",
-            amt: 1,
-            transactionDt: "07-04-2019"
+            customerName: "Harold",
+            amount: 1,
+            transactionDate: "07-04-2019"
           },
           {
             custid: 8,
-            name: "Joshua",
-            amt: 80,
-            transactionDt: "07-03-2019"
+            customerName: "Joshua",
+            amount: 80,
+            transactionDate: "07-03-2019"
           },
           {
             custid: 9,
-            name: "Trent",
-            amt: 224,
-            transactionDt: "07-21-2019"
+            customerName: "Trent",
+            amount: 224,
+            transactionDate: "07-21-2019"
           },
           {
             custid: 10,
-            name: "Kent",
-            amt: 125,
-            transactionDt: "05-01-2019"
+            customerName: "Kent",
+            amount: 700,
+            transactionDate: "05-01-2019"
           },
           {
             custid: 11,
-            name: "Barry",
-            amt: 75,
-            transactionDt: "05-21-2019"
+            customerName: "Barry",
+            amount: 98,
+            transactionDate: "05-21-2019"
           },
           {
             custid: 12,
-            name: "Marcus",
-            amt: 10,
-            transactionDt: "06-01-2019"
+            customerName: "Marcus",
+            amount: 10,
+            transactionDate: "06-01-2019"
           },
           {
             custid: 13,
-            name: "Adrian",
-            amt: 75,
-            transactionDt: "06-21-2019"
+            customerName: "Adrian",
+            amount: 75,
+            transactionDate: "06-21-2019"
           },
           {
             custid: 14,
-            name: "Luke",
-            amt: 200,
-            transactionDt: "07-01-2019"
+            customerName: "Luke",
+            amount: 200,
+            transactionDate: "07-01-2019"
           },
           {
             custid: 15,
-            name: "Simon",
-            amt: 224,
-            transactionDt: "07-21-2019"
+            customerName: "Simon",
+            amount: 224,
+            transactionDate: "07-21-2019"
           },
           {
             custid: 16,
-            name: "Aaron",
-            amt: 120,
-            transactionDt: "06-21-2019"
+            customerName: "Aaron",
+            amount: 120,
+            transactionDate: "06-21-2019"
+          },
+          {
+            custid: 17,
+            customerName: "David",
+            amount: 10,
+            transactionDate: "06-01-2019"
+          },
+          {
+            custid: 18,
+            customerName: "Henry",
+            amount: 75,
+            transactionDate: "06-21-2019"
+          },
+          {
+            custid: 19,
+            customerName: "Drake",
+            amount: 200,
+            transactionDate: "07-01-2019"
+          },
+          {
+            custid: 20,
+            customerName: "Wayne",
+            amount: 224,
+            transactionDate: "07-21-2019"
+          },
+          {
+            custid: 21,
+            customerName: "Chris",
+            amount: 120,
+            transactionDate: "06-21-2019"
           }
       ]
     );
