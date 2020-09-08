@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { stockData } from '../../src/data/secondTestData';
 import DataTable from './DataTable';
+import testData from '../data/testData';
+import ReactTable from 'react-table';
+import _ from 'lodash';
+import "./css/transactionCalc.css";
 
 function calculateDataOutput(dataSet) {
 
@@ -88,48 +92,73 @@ function search(rows) {
 }
 
 const TestComp = () => {
-    let cal = calculateDataOutput(stockData);
-    // console.log(cal);
-    let dataArr = Object.keys(cal).map((k, i) => {
-        // console.log(cal[k])
-        return cal[k];
-    });
+    const [transactionData, setTransactionData] = useState([]);
+
+    const columns = [
+        {
+            Header: 'Customer',
+            accessor: 'name'
+        },
+        {
+            Header: 'Month',
+            accessor: 'month'
+        },
+        {
+            Header: "# of Transactions",
+            accessor: 'numTransactions'
+        },
+        {
+            Header: 'Reward Points',
+            accessor: 'points'
+        }
+    ];
+
+    function getIndividualTransactions(row) {
+        let byCustMonth = _.filter(transactionData.pointsPerTransaction, (tRow) => {
+            return row.original.custid === tRow.custid && row.original.monthNumber === tRow.month;
+        });
+        return byCustMonth;
+    }
+
+    useEffect(() => {
+        testData().then((data) => {
+            const results = calculateDataOutput(data);
+            setTransactionData(results);
+        });
+    }, []);
 
     let customerNames = [];
-    console.log(customerNames);
-    let summary = cal.summaryByCustomer;
-    let testObj = Object.values(summary).map((k, i) => {
+
+    let tranData = Object.values(transactionData).map((k, i) => {
         customerNames.push(k);
-        return [k]
+        return [transactionData];
     });
-    // console.log(customerNames);
 
-    var res = customerNames.filter(c => c.customerName != 'Mike')
-    console.log(res);
+    console.log("++++++++================")
+    // console.log(tranData)
+    // console.log(customerNames.map((k, i) => k[i]));
+    console.log(Object.values(transactionData).map((k, i) => transactionData.ptPerTransaction[i].customerName))
 
-    // console.log(testObj);
-
-
-    // console.log(typeof dataArr)
-
-    // <DataTable data={search(stockData)}/>
     return (
         <div>
-            {customerNames.map((k, i) => {
-                return (
-                    <div key={i}>
-                            <tbody>
-                                <tr>
-                                    <td>{k.customerId}</td>
-                                    <td>{k.customerName}</td>
-                                    <td>{k.month}</td>
-                                    <td>{k.numTransactions}</td>
-                                </tr>
-                            </tbody>
-
-                    </div>
-                )
-            })}
+            <ReactTable data={transactionData.summaryByCustomer}
+                defaultPageSize={7}
+                columns={columns}
+                SubComponent={row => {
+                    return (
+                        <div>
+                            {getIndividualTransactions(row).map(t => {
+                                return <div className="container">
+                                    <div className="row">
+                                        <div className="col-8">
+                                            <strong>Transaction Date:</strong> {t.transactionDate} = <strong>{t.amount}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            })}
+                        </div>
+                    )
+                }} />
         </div>
     );
 }
