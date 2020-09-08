@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import testData from '../../src/data/testData';
-import { useTable } from 'react-table';
+import React, { Component } from 'react';
+import { stockData } from '../../src/data/secondTestData';
 import DataTable from './DataTable';
-import { ReactTable } from 'react-table';
 
-// Calculate Points Function
 function calculateDataOutput(dataSet) {
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -32,7 +29,7 @@ function calculateDataOutput(dataSet) {
     let totalPointsByCustomer = {};
 
     ptPerTransaction.forEach(ppt => {
-        let {customerId, customerName, month, points } = ppt;
+        let { customerId, customerName, month, points } = ppt;
         if (!byCustomer[customerId]) {
             byCustomer[customerId] = [];
         }
@@ -71,13 +68,13 @@ function calculateDataOutput(dataSet) {
 
     let totByCustomer = [];
 
-    for (let custKey in totalPointsByCustomer) {    
+    for (let custKey in totalPointsByCustomer) {
         totByCustomer.push({
             customerName: custKey,
-          points: totalPointsByCustomer[custKey]
-        });    
-      }
-    
+            points: totalPointsByCustomer[custKey]
+        });
+    }
+
     return {
         summaryByCustomer: tot,
         ptPerTransaction,
@@ -86,80 +83,56 @@ function calculateDataOutput(dataSet) {
 
 }
 
-const PointCalc = () => {
-    const [transactionData, setTransactionData] = useState([]);
+function search(rows) {
+    return rows.filter((row) => row.customerName.toLowerCase());
+}
 
-    // Customer receives 2 points / dollar over $100
-    let td = testData().then((data) => {
-        const results = calculateDataOutput(data);
-        // setTransactionData(results);
-        
-    }, []);
-
-    // console.log("td");
-    // console.log(td);
-
-    useEffect(() => {
-        testData().then((data) => {
-            const results = calculateDataOutput(data);
-            setTransactionData(results);
-        });
-    }, []);
-
-
-    let tstData = testData().then((data) => {
-        return calculateDataOutput(data);
-    }, []);
-
-    let arrTransactionData = Object.values(transactionData);
-    // console.log(arrTransactionData);
-
-    let newData = arrTransactionData.map((k, i) => {
-        return arrTransactionData[i];
+const TestComp = () => {
+    let cal = calculateDataOutput(stockData);
+    // console.log(cal);
+    let dataArr = Object.keys(cal).map((k, i) => {
+        // console.log(cal[k])
+        return cal[k];
     });
 
+    let customerNames = [];
+    console.log(customerNames);
+    let summary = cal.summaryByCustomer;
+    let testObj = Object.values(summary).map((k, i) => {
+        customerNames.push(k);
+        return [k]
+    });
+    // console.log(customerNames);
 
-    // if (transactionData == null) {
-    //     return <div>Loading...</div>
-    // }
+    var res = customerNames.filter(c => c.customerName != 'Mike')
+    console.log(res);
 
-    // Create Columns
+    // console.log(testObj);
 
-    const columns = React.useMemo(() => [
-        {
-            Header: 'Column1',
-            accessor: 'col1'
-        }
-    ], []);
 
-    const totalsByColumns = [
-        {
-          Header:'Customer',
-          accessor: 'name'      
-        },    
-        {
-          Header:'Points',
-          accessor: 'points'
-        }
-      ]
+    // console.log(typeof dataArr)
 
-    // Create tabel instace for markup
-    // const tableInstance = useTable({ columns, transactionData });
-    // const {
-    //     getTableProps,
-    //     getTableBodyProps,
-    //     headerGroups,
-    //     rows,
-    //     prepareRow,
-    //   } = tableInstance
-
+    // <DataTable data={search(stockData)}/>
     return (
         <div>
-            <h2>Here is the Point Calc Result</h2>
-            
-            {/* <ReactTable columns={columns}/> */}
+            {customerNames.map((k, i) => {
+                return (
+                    <div key={i}>
+                            <tbody>
+                                <tr>
+                                    <td>{k.customerId}</td>
+                                    <td>{k.customerName}</td>
+                                    <td>{k.month}</td>
+                                    <td>{k.numTransactions}</td>
+                                </tr>
+                            </tbody>
+
+                    </div>
+                )
+            })}
         </div>
     );
 }
 
-export default PointCalc;
+export default TestComp;
+
