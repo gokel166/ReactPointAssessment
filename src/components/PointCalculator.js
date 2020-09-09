@@ -141,7 +141,7 @@ const PointCalc = () => {
           Header:'Points',
           accessor: 'points'
         }
-      ]
+      ];
 
     // Create tabel instace for markup
     // const tableInstance = useTable({ columns, transactionData });

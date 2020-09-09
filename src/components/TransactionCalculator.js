@@ -113,6 +113,16 @@ const TestComp = () => {
         }
     ];
 
+    const totalsByColumns = [
+        {
+            Header: 'Customer',
+            accessor: 'name'
+        },
+        {
+            Header: 'Points',
+            accessor: 'points'
+        }];
+
     function getIndividualTransactions(row) {
         let byCustMonth = _.filter(transactionData.pointsPerTransaction, (tRow) => {
             return row.original.custid === tRow.custid && row.original.monthNumber === tRow.month;
@@ -120,12 +130,23 @@ const TestComp = () => {
         return byCustMonth;
     }
 
+
+
     useEffect(() => {
         testData().then((data) => {
             const results = calculateDataOutput(data);
             setTransactionData(results);
         });
     }, []);
+
+    // if (transactionData == null) {
+    //     return <div>Loading...</div>;
+    // }
+
+    // return transactionData == null ?
+    //     <div>Loading...</div>
+    //     :
+    //     <div></div>
 
     let customerNames = [];
 
@@ -150,7 +171,7 @@ const TestComp = () => {
                             {getIndividualTransactions(row).map(t => {
                                 return <div className="container">
                                     <div className="row">
-                                        <div className="col-8">
+                                        <div className="col-5">
                                             <strong>Transaction Date:</strong> {t.transactionDate} = <strong>{t.amount}</strong>
                                         </div>
                                     </div>
@@ -159,7 +180,24 @@ const TestComp = () => {
                         </div>
                     )
                 }} />
+            <div className="container">
+                <div className="row">
+                    <div className="col-10">
+                        <h2>Points Rewards System Totals By Customer</h2>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-8">
+                        <ReactTable
+                            data={transactionData.totalPointsByCustomer}
+                            columns={totalsByColumns}
+                            defaultPageSize={5}
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
+
     );
 }
 
