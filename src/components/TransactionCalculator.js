@@ -155,7 +155,7 @@ const TestComp = () => {
         return [transactionData];
     });
 
-    console.log("++++++++================")
+    // console.log("++++++++================")
     // console.log(tranData)
     // console.log(customerNames.map((k, i) => k[i]));
     console.log(Object.values(transactionData).map((k, i) => transactionData.ptPerTransaction[i].customerName))
