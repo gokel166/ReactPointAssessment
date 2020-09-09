@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import PointCalc from './components/PointCalculator';
 import TestComp from './components/TransactionCalculator';
 
 
